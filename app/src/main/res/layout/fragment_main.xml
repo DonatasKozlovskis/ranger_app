@@ -28,17 +28,33 @@
 
     <EditText
         android:id="@+id/editText"
-        android:editable="true"
-        android:text="frame"
+        android:text="@string/default_frame_name"
         android:textAlignment="center"
-        android:gravity="center"
-        style="@style/button_text"
         android:layout_width="wrap_content"
+        android:minHeight="@android:dimen/app_icon_size"
+        android:minWidth="180dip"
+        android:gravity="center"
+        android:inputType="none"
+        android:autoText="false"
+        style="@style/button_text"
+        android:background="@drawable/rounded_field"
+        android:layout_alignWithParentIfMissing="false"
         android:layout_below="@+id/publish_button"
         android:layout_centerHorizontal="true"
-        android:minWidth="180dip"
-        android:background="@drawable/rounded_field" />
+        android:maxWidth="250dip" />
 
+
+    <ImageButton
+        android:id="@+id/btnSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_field"
+        android:src="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+        android:minWidth="@android:dimen/app_icon_size"
+        android:minHeight="@android:dimen/app_icon_size"
+        android:layout_alignTop="@+id/editText"
+        android:layout_toRightOf="@+id/editText"
+        android:layout_toEndOf="@+id/editText" />
 
 
 
