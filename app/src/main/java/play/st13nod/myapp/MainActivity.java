@@ -2,6 +2,7 @@ package play.st13nod.myapp;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,4 +159,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            Intent intent=new Intent();
+            intent.putExtra("MESSAGE", "leaving activity");
+            setResult(1, intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

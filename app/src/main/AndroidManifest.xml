@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="play.st13nod.myapp" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         tools:replace = "android:icon"
         android:allowBackup="true"
@@ -16,6 +19,11 @@
             android:configChanges="orientation|screenSize" >
             <meta-data android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
+        </activity>
+        <activity
+            android:name=".MainActivityRos"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +31,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="org.ros.android.MasterChooser" />
+
+        <service android:name="org.ros.android.NodeMainExecutorService" >
+            <intent-filter>
+                <action android:name="org.ros.android.NodeMainExecutorService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

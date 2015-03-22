@@ -43,6 +43,8 @@ public class MyNode extends AbstractNodeMain {
             std_msgs.String message = publisher.newMessage();
             message.setData(text);
             publisher.publish(message);
+        }else{
+
         }
     }
 

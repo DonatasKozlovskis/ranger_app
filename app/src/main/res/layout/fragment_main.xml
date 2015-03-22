@@ -39,7 +39,7 @@
         style="@style/button_text"
         android:background="@drawable/rounded_field"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_below="@+id/publish_button"
+        android:layout_below="@id/publish_button"
         android:layout_centerHorizontal="true"
         android:maxWidth="250dip" />
 
