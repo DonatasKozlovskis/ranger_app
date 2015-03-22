@@ -14,7 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 
 
-import play.st13nod.myapp.PlaceholderFragment.TextChangeListener;
+import play.st13nod.myapp.AddFrameFragment.TextChangeListener;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, TextChangeListener {
 
@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      */
 
     SectionsPagerAdapter mSectionsPagerAdapter;
-    PlaceholderFragment placeholderFragment;
+    AddFrameFragment addFrameFragment;
     ListFragment listFragment;
 
     /**
@@ -119,11 +119,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            // Return a AddFrameFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    placeholderFragment = PlaceholderFragment.newInstance(position + 1);
-                    return placeholderFragment;
+                    addFrameFragment = AddFrameFragment.newInstance(position + 1);
+                    return addFrameFragment;
 
                 case 1:
                     listFragment = ListFragment.newInstance(position + 1);
