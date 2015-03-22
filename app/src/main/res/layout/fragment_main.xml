@@ -17,7 +17,7 @@
 
 
     <Button
-        android:id="@+id/publish_button"
+        android:id="@+id/button_add"
         android:layout_width="180dip"
         android:layout_height="180dip"
         android:text="Add frame"
@@ -39,7 +39,7 @@
         style="@style/button_text"
         android:background="@drawable/rounded_field"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_below="@id/publish_button"
+        android:layout_below="@id/button_add"
         android:layout_centerHorizontal="true"
         android:maxWidth="250dip" />
 
@@ -48,7 +48,7 @@
         android:id="@+id/btnSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_field"
+        android:background="@drawable/rounded_field_dark_gray"
         android:src="@drawable/abc_ic_voice_search_api_mtrl_alpha"
         android:minWidth="@android:dimen/app_icon_size"
         android:minHeight="@android:dimen/app_icon_size"

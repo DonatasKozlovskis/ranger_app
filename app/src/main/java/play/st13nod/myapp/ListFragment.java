@@ -1,6 +1,6 @@
 package play.st13nod.myapp;
 
-import android.database.Cursor;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,16 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-/**
- * Created by st13nod on 20/03/15.
- */
 public class ListFragment extends Fragment {
     /**
      * The fragment argument representing the section number for this
@@ -29,6 +23,11 @@ public class ListFragment extends Fragment {
     private ArrayAdapter<String> placesAdapter;
     private Toast toast;
 
+    // interface to communicate with container activity
+    public interface GotoFrameListener {
+        public void onNewGoto(String newText);
+    }
+    GotoFrameListener mCallback;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -43,6 +42,20 @@ public class ListFragment extends Fragment {
     }
 
     public ListFragment() {
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (GotoFrameListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement GotoFrameListener");
+        }
     }
 
     @Override
@@ -65,19 +78,19 @@ public class ListFragment extends Fragment {
         listView.setAdapter(placesAdapter);
         // We'll call our MainActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // CursorAdapter returns a cursor at the correct position for getItem(), or null
-                // if it cannot seek to that position.
-                final String text2 =  placesAdapter.getItem(position);
-                final String text = ((TextView)view).getText().toString();
-                placesAdapter.remove(text2);
-                toast("You removed: " + text2 );
+                onItemClickCallback(position);
             }
         });
-
-
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                final String text =  placesAdapter.getItem(position);
+                placesAdapter.remove(text);
+                return true;
+            }
+        });
 
         return rootView;
     }
@@ -85,8 +98,15 @@ public class ListFragment extends Fragment {
         toast.setText(text);
         toast.show();
     }
+    // callback for clicked listViewitem
+    private void onItemClickCallback(int position) {
+        final String text =  placesAdapter.getItem(position);
+        toast("Go to: " + text );
+        mCallback.onNewGoto(text);
+    }
     public void addListItem (String text) {
         placesAdapter.add(text);
     }
+
 }
 

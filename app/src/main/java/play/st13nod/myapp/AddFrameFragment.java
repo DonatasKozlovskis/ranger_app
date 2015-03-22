@@ -20,22 +20,19 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class AddFrameFragment extends Fragment {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    TextChangeListener mCallback;
+
+    AddFrameListener mCallback;
 
     // interface to communicate with container activity
-    public interface TextChangeListener {
+    public interface AddFrameListener {
         public void onNewFrameAdd(String newText);
     }
-
+    // The fragment argument representing the section number for this
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     //ui objects
     private EditText frameEditText;
-    private Button button;
+    private Button buttonAdd;
     private ImageButton buttonSpeak;
 
     //toast object
@@ -66,10 +63,10 @@ public class AddFrameFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (TextChangeListener) activity;
+            mCallback = (AddFrameListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement AddFrameListener");
         }
     }
 
@@ -84,17 +81,18 @@ public class AddFrameFragment extends Fragment {
         toast = Toast.makeText( getActivity(), "", Toast.LENGTH_SHORT);
 
         frameEditText = (EditText) rootView.findViewById(R.id.editText);
-        button = (Button) rootView.findViewById(R.id.publish_button);
+        buttonAdd = (Button) rootView.findViewById(R.id.button_add);
         buttonSpeak = (ImageButton) rootView.findViewById(R.id.btnSpeak);
 
-        button.setOnClickListener( new View.OnClickListener() {
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonCallback(v);
-             }
+                buttonAddCallback(v);
+            }
         });
+        
         buttonSpeak.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
@@ -104,7 +102,7 @@ public class AddFrameFragment extends Fragment {
         return rootView;
     }
 
-    public void buttonCallback(View view) {
+    public void buttonAddCallback(View view) {
 
         String text = frameEditText.getText().toString();
 
@@ -116,9 +114,14 @@ public class AddFrameFragment extends Fragment {
         }
 
         frameCounter += 1;
-        text = "frame" + frameCounter;
+        text = getString(R.string.default_frame_name) + frameCounter;
         frameEditText.setText(text);
 
+    }
+
+    private void toast(final String text) {
+        toast.setText(text);
+        toast.show();
     }
 
     /**
@@ -135,11 +138,6 @@ public class AddFrameFragment extends Fragment {
         } catch (ActivityNotFoundException a) {
             toast( getString(R.string.speech_not_supported));
         }
-    }
-
-    private void toast(final String text) {
-        toast.setText(text);
-        toast.show();
     }
 
     /**

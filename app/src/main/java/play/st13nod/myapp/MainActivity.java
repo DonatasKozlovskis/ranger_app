@@ -14,9 +14,10 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 
 
-import play.st13nod.myapp.AddFrameFragment.TextChangeListener;
+import play.st13nod.myapp.AddFrameFragment.AddFrameListener;
+import play.st13nod.myapp.ListFragment.GotoFrameListener;
 
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, TextChangeListener {
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, AddFrameListener, GotoFrameListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,11 +37,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      */
     ViewPager mViewPager;
 
+    //interface AddFrameListener implementation
     public void onNewFrameAdd(String newText) {
         if (listFragment!=null) {
             listFragment.addListItem( newText );
             MainActivityRos.newFrameNamePublisher.publishString(newText);
         }
+    }
+
+    //interface GotoFrameListener implementation
+    public void onNewGoto(String newText) {
+        MainActivityRos.gotoFramePublisher.publishString(newText);
     }
 
 
