@@ -11,18 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import play.st13nod.myapp.PlaceholderFragment.TextChangeListener;
 
@@ -36,6 +26,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
     SectionsPagerAdapter mSectionsPagerAdapter;
     PlaceholderFragment placeholderFragment;
     ListFragment listFragment;
@@ -48,6 +39,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public void onTextChange(String newText) {
         if (listFragment!=null) {
             listFragment.addListItem( newText );
+            MainActivityRos.newFrameNamePublisher.publishStringName(newText);
         }
     }
 
@@ -172,4 +164,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
 }

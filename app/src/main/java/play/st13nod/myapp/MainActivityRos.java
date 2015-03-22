@@ -1,65 +1,56 @@
 package play.st13nod.myapp;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
-import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 import org.ros.address.InetAddressFactory;
-import org.ros.android.BitmapFromCompressedImage;
 import org.ros.android.RosActivity;
-import org.ros.android.view.RosImageView;
 import org.ros.node.NodeConfiguration;
 import org.ros.node.NodeMainExecutor;
-
-import java.util.ArrayList;
 
 
 public class MainActivityRos extends RosActivity {
 
-    private RosImageView<sensor_msgs.CompressedImage> image;
-    public final MyNode myNode;
-    private Button button;
+    public static RosStringSendNode newFrameNamePublisher = new RosStringSendNode( "frame_name_add", "frame_name_add_topic");
+    public static RosStringSendNode gotoFramePublisher;
 
     public MainActivityRos() {
         super("Ranger App", "Ranger App");
-        myNode = new MyNode();
+
+        //create node objects
+        newFrameNamePublisher = new RosStringSendNode( "frame_name_add", "frame_name_add_topic");
+        gotoFramePublisher = new RosStringSendNode("frame_goto_node", "frame_goto_topic");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-//        image = (RosImageView<sensor_msgs.CompressedImage>) findViewById(R.id.image);
-//        image.setTopicName("/usb_cam/image_raw/compressed");
-//        image.setMessageType(sensor_msgs.CompressedImage._TYPE);
-//        image.setMessageToBitmapCallable(new BitmapFromCompressedImage());
     }
 
     @Override
     protected void init(NodeMainExecutor nodeMainExecutor) {
+        // get node configuration
         NodeConfiguration nodeConfiguration =
                 NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress(),
                         getMasterUri());
-        nodeMainExecutor.execute(myNode, nodeConfiguration);
 
+        // execute nodes
+        nodeMainExecutor.execute(newFrameNamePublisher, nodeConfiguration);
+        nodeMainExecutor.execute(gotoFramePublisher, nodeConfiguration);
+
+        //start new activity with swipe views
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1 );
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1 ) {
-            finish();//finishing activity
+            //finishing this activity whenever MainActivity is paused or finished.
+            finish();
         }
-
     }
 }

@@ -7,5 +7,11 @@
     <string name="speech_prompt">Say something&#8230;</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="tap_on_mic">Tap on mic to speak \n or enter text manually</string>
-    <string name="defaul_frame_name">frame</string>
+
+    <string name="frameNamePublisherNode">frame_name_add</string>
+    <string name="frameNamePublisherTopic">frame_name_add_topic</string>
+
+    <string name="frameGoToPublisherNode">frame_goto_node</string>
+    <string name="frameGoToPublisherTopic">frame_goto_topic</string>
+
 </resources>
