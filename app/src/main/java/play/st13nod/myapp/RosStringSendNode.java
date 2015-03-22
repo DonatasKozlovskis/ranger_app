@@ -33,7 +33,7 @@ public class RosStringSendNode extends AbstractNodeMain {
         publisher = connectedNode.newPublisher(topic_name, std_msgs.String._TYPE);
     }
 
-    public void publishStringName(String text) {
+    public void publishString(String text) {
         publish(text);
     }
 

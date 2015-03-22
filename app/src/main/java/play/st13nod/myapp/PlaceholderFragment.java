@@ -28,7 +28,7 @@ public class PlaceholderFragment extends Fragment {
 
     // interface to communicate with container activity
     public interface TextChangeListener {
-        public void onTextChange(String newText);
+        public void onNewFrameAdd(String newText);
     }
 
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -41,7 +41,6 @@ public class PlaceholderFragment extends Fragment {
     //toast object
     private Toast toast;
 
-    private RosStringSendNode rosStringSendNode;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private int frameCounter = 0;
 
@@ -77,7 +76,6 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rosStringSendNode = new RosStringSendNode();
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -112,8 +110,7 @@ public class PlaceholderFragment extends Fragment {
 
         if (!text.isEmpty()) {
             toast("Sending frame named: " + text );
-            rosStringSendNode.publishStringName(text);
-            mCallback.onTextChange(text);
+            mCallback.onNewFrameAdd(text);
         }else{
             toast("Cannot add empty frame :(");
         }

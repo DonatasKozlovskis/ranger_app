@@ -18,7 +18,7 @@ public class MainActivityRos extends RosActivity {
     public MainActivityRos() {
         super("Ranger App", "Ranger App");
 
-        //create node objects
+        //create static node objects
         newFrameNamePublisher = new RosStringSendNode( "frame_name_add", "frame_name_add_topic");
         gotoFramePublisher = new RosStringSendNode("frame_goto_node", "frame_goto_topic");
     }

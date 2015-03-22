@@ -36,10 +36,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      */
     ViewPager mViewPager;
 
-    public void onTextChange(String newText) {
+    public void onNewFrameAdd(String newText) {
         if (listFragment!=null) {
             listFragment.addListItem( newText );
-            MainActivityRos.newFrameNamePublisher.publishStringName(newText);
+            MainActivityRos.newFrameNamePublisher.publishString(newText);
         }
     }
 
