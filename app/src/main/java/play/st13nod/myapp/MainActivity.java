@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 
 
 import play.st13nod.myapp.AddFrameFragment.AddFrameListener;
@@ -78,6 +79,21 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+                if (state == ViewPager.SCROLL_STATE_IDLE)
+                {
+                    if (mViewPager.getCurrentItem() == 1)
+                    {
+                        // Hide the keyboard.
+                        ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(mViewPager.getWindowToken(), 0);
+                    }
+                }
             }
         });
 
